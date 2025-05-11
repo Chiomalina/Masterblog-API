@@ -1,0 +1,201 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Masterblog API",
+    "version": "1.0.0",
+    "description": "CRUD and search endpoints for blog posts."
+  },
+  "host": "localhost:5002",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "tags": [
+    {
+      "name": "Post",
+      "description": "Operations on blog posts"
+    }
+  ],
+  "paths": {
+    "/posts": {
+      "get": {
+        "tags": ["Post"],
+        "summary": "List all posts",
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Field to sort by (title or content)",
+            "required": false,
+            "type": "string",
+            "enum": ["title", "content"]
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "Sort order: asc or desc",
+            "required": false,
+            "type": "string",
+            "enum": ["asc", "desc"],
+            "default": "asc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of posts",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Post" }
+            }
+          },
+          "400": {
+            "description": "Invalid sort or direction parameter",
+            "schema": { "$ref": "#/definitions/Error" }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Post"],
+        "summary": "Create a new post",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/NewPost" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Post created",
+            "schema": { "$ref": "#/definitions/Post" }
+          },
+          "400": {
+            "description": "Missing or invalid fields",
+            "schema": { "$ref": "#/definitions/Error" }
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "put": {
+        "tags": ["Post"],
+        "summary": "Update an existing post",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/UpdatePost" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post updated",
+            "schema": { "$ref": "#/definitions/Post" }
+          },
+          "404": {
+            "description": "Post not found",
+            "schema": { "$ref": "#/definitions/Error" }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Post"],
+        "summary": "Delete a post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deletion confirmation",
+            "schema": { "$ref": "#/definitions/Message" }
+          },
+          "404": {
+            "description": "Post not found",
+            "schema": { "$ref": "#/definitions/Error" }
+          }
+        }
+      }
+    },
+    "/posts/search": {
+      "get": {
+        "tags": ["Post"],
+        "summary": "Search posts by title or content",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Substring to match in titles"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Substring to match in content"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching posts",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Post" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Post": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer", "example": 1 },
+        "title": { "type": "string", "example": "First post" },
+        "content": { "type": "string", "example": "This is the first post." }
+      }
+    },
+    "NewPost": {
+      "type": "object",
+      "required": ["title", "content"],
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" }
+      }
+    },
+    "UpdatePost": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "message": { "type": "string", "example": "Post with id 2 has been deleted successfully." }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error": { "type": "string", "example": "Post not found." }
+      }
+    }
+  }
+}
