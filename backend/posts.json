@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "title": "First post",
+    "content": "This is the first post.",
+    "author": "Chimamanda Adichie",
+    "date": "2023-06-07"
+  },
+  {
+    "id": 2,
+    "title": "Second post",
+    "content": "This is the second post.",
+    "author": "Chinua Achebe",
+    "date": "1999-05-25"
+  },
+  {
+    "id": 3,
+    "title": "The rising sun",
+    "content": "Stories of the eastern equitor",
+    "author": "Lina Chioma MIMA",
+    "date": "Stories of the eastern equitor"
+  },
+  {
+    "id": 4,
+    "title": "Kids transformation",
+    "content": "Habitual training",
+    "author": "Habitual training",
+    "date": "Habitual training"
+  },
+  {
+    "id": 5,
+    "title": "Kids transformation",
+    "content": "Habitual training",
+    "author": "Habitual training",
+    "date": "Habitual training"
+  },
+  {
+    "id": 6,
+    "title": "Kids transformation",
+    "content": "Habitual training",
+    "author": "Habitual training",
+    "date": "Habitual training"
+  },
+  {
+    "id": 7,
+    "title": "Kids transformation",
+    "content": "Habitual training",
+    "author": "Sochima",
+    "date": "03-05-2025"
+  }
+]
